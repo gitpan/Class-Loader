@@ -6,14 +6,14 @@
 ## This code is free software; you can redistribute it and/or modify
 ## it under the same terms as Perl itself.
 ##
-## $Id: Loader.pm,v 1.12 2001/05/02 02:57:02 vipul Exp $
+## $Id: Loader.pm,v 2.00 2001/05/29 13:17:54 vipul Exp $
 
 package Class::Loader;
 use Data::Dumper;
 use CPAN;
 use vars qw($VERSION);
 
-($VERSION)  = '$Revision: 1.12 $' =~ /\s(\d+\.\d+)\s/; 
+($VERSION)  = '$Revision: 2.00 $' =~ /\s(\d+\.\d+)\s/; 
 my %MAPS = ();
 
 sub new { 
@@ -96,8 +96,8 @@ Class::Loader - Load modules and create objects on demand.
 
 =head1 VERSION
 
-    $Revision: 1.12 $
-    $Date: 2001/05/02 02:57:02 $
+    $Revision: 2.00 $
+    $Date: 2001/05/29 13:17:54 $
 
 =head1 SYNOPSIS
 
