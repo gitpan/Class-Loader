@@ -1,8 +1,14 @@
 
-                        CHANGELOG for Crypt::RSA
-           $Id: Changes,v 1.19 2001/04/23 04:12:14 vipul Exp $
+                      CHANGELOG for Class::Loader
+           $Id: Changes,v 1.2 2001/05/02 02:57:41 vipul Exp $
 
 --------------------------------------------------------------------------
+
+1.12                                                        April 30, 2001
+
+    * Changed the code to handle escaping of Args in _load(). Args are now
+      serialized with Data::Dumper (and processed a bit) before eval().
+      This lets us handle references & nested structures properly.
 
 1.8                                                         April 28, 2001
 

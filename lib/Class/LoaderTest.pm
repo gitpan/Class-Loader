@@ -6,7 +6,7 @@
 ## This code is free software; you can redistribute it and/or modify
 ## it under the same terms as Perl itself.
 ##
-## $Id: LoaderTest.pm,v 1.1.1.1 2001/04/22 01:11:40 vipul Exp $
+## $Id: LoaderTest.pm,v 1.2 2001/05/01 00:09:12 vipul Exp $
 
 package Class::LoaderTest;
 use Data::Dumper;
@@ -28,6 +28,13 @@ sub foo {
 
 }
 
+sub blah { 
+
+    my ($class, %params) = @_;
+    my $self = { %params };
+    return bless $self, $class;
+
+}
 
 1;
 

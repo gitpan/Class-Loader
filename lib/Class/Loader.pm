@@ -6,15 +6,15 @@
 ## This code is free software; you can redistribute it and/or modify
 ## it under the same terms as Perl itself.
 ##
-## $Id: Loader.pm,v 1.8 2001/04/28 15:19:16 vipul Exp $
+## $Id: Loader.pm,v 1.12 2001/05/02 02:57:02 vipul Exp $
 
 package Class::Loader;
+use Data::Dumper;
 use CPAN;
 use vars qw($VERSION);
 
-($VERSION)  = '$Revision: 1.8 $' =~ /\s(\d+\.\d+)\s/; 
+($VERSION)  = '$Revision: 1.12 $' =~ /\s(\d+\.\d+)\s/; 
 my %MAPS = ();
-
 
 sub new { 
     return bless {}, shift;
@@ -52,11 +52,14 @@ sub _load {
             } else { return }
         }
         $constructor ||= 'new';
-        if ($args) { $object = eval "${module}->${constructor}(@$args)"  || return } 
-        else       { $object = eval "${module}->${constructor}"          || return }
+        if ($args) { 
+            my $topass = __prepare_args ($args);
+            $object = eval "$module->$constructor($topass)" or return;
+            undef $topass; undef $args;
+        } else { $object = eval "$module->$constructor" or return }
     } else { return }
 
-    return $field ? $$self{$field} = $object : $object;
+    return $field ? $$self{$field} = $object : $object
 
 }
 
@@ -76,6 +79,15 @@ sub _retrmap {
 }
 
 
+sub __prepare_args { 
+
+    my $topass = Dumper shift;
+    $topass =~ s/\$VAR1 = \[//; 
+    $topass =~ s/];\s*//g; 
+    return $topass;
+
+}
+
 1;
 
 =head1 NAME
@@ -84,8 +96,8 @@ Class::Loader - Load modules and create objects on demand.
 
 =head1 VERSION
 
-    $Revision: 1.8 $
-    $Date: 2001/04/28 15:19:16 $
+    $Revision: 1.12 $
+    $Date: 2001/05/02 02:57:02 $
 
 =head1 SYNOPSIS
 
