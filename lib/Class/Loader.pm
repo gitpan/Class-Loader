@@ -6,13 +6,20 @@
 ## This code is free software; you can redistribute it and/or modify
 ## it under the same terms as Perl itself.
 ##
-## $Id: Loader.pm,v 1.6 2001/04/27 15:53:24 vipul Exp $
+## $Id: Loader.pm,v 1.7 2001/04/28 03:21:46 vipul Exp $
 
 package Class::Loader;
+use CPAN;
 use vars qw($VERSION);
 
-($VERSION)  = '$Revision: 1.6 $' =~ /\s(\d+\.\d+)\s/; 
+($VERSION)  = '$Revision: 1.7 $' =~ /\s(\d+\.\d+)\s/; 
 my %MAPS = ();
+
+
+sub new { 
+    return bless {}, shift;
+}
+
 
 sub _load { 
 
@@ -36,7 +43,14 @@ sub _load {
     } 
 
     if ($module) { 
-        eval "require $module" || return;
+        unless (eval "require $module") { 
+            if ($source{CPAN}) { 
+                my $obj = CPAN::Shell->expand ('Module', $module);
+                return unless $obj;
+                $obj->install; 
+                eval "require $module" || return;
+            } else { return }
+        }
         $constructor ||= 'new';
         if ($args) { $object = eval "${module}->${constructor}(@$args)"  || return } 
         else       { $object = eval "${module}->${constructor}"          || return }
@@ -70,8 +84,8 @@ Class::Loader - Load modules and create objects on demand.
 
 =head1 VERSION
 
-    $Revision: 1.6 $
-    $Date: 2001/04/27 15:53:24 $
+    $Revision: 1.7 $
+    $Date: 2001/04/28 03:21:46 $
 
 =head1 SYNOPSIS
 
@@ -107,13 +121,18 @@ module names at _load().
 
 =over 4
 
+=item B<new()>
+
+A basic constructor. You can use this to create an object of
+Class::Loader, in case you don't want to inherit Class::Loader.
+
 =item B<_load()>
 
 _load() loads a module and calls its constructor. It returns the newly
 constructed object on success or a non-true value on failure. The first
-argument to load can be the name of the key in which the returned object
-is stored. This argument is optional. The second (or the first) argument
-is a hash which can take the following keys:
+argument can be the name of the key in which the returned object is
+stored. This argument is optional. The second (or the first) argument is a
+hash which can take the following keys:
 
 =over 4
 
@@ -128,13 +147,19 @@ or Name keys must be present in a call to _load().
 
 =item B<Constructor>
 
-Name of the constructor. Defaults to "new".
+Name of the Module constructor. Defaults to "new".
 
 =item B<Args>
 
 A reference to the list of arguments for the constructor. _load() calls
 the constructor with this list. If no Args are present, _load() will call
 the constructor without any arguments.
+
+=item B<CPAN>
+
+If the Module is not installed on the local system, _load() can fetch &
+install it from CPAN provided the CPAN key is present. This functionality
+assumes availability of a pre-configured CPAN shell.
 
 =back
 
@@ -169,8 +194,8 @@ Vipul Ved Prakash, E<lt>mail@vipul.netE<gt>
 
 =head1 LICENSE
 
-Copyright (c) 2000-2001, Vipul Ved Prakash. All rights reserved. This code
-is free software; you can redistribute it and/or modify it under the same
+Copyright (c) 2001, Vipul Ved Prakash. All rights reserved. This code is
+free software; you can redistribute it and/or modify it under the same
 terms as Perl itself.
 
 =cut

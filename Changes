@@ -1,4 +1,17 @@
 
-1.4 
+                        CHANGELOG for Crypt::RSA
+           $Id: Changes,v 1.19 2001/04/23 04:12:14 vipul Exp $
+
+--------------------------------------------------------------------------
+
+1.7                                                         April 28, 2001
+
+    * Introduced CPAN switch in calls to _load()
+
+    * Wrote ::new()
+
+    * Small Documentation changes.
+
+1.6                                                         April 27, 2001
 
     * First release.
