@@ -12,6 +12,6 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     'NAME'         => 'Class::Loader',
     'AUTHOR'       => 'Vipul Ved Prakash <mail@vipul.net>',
-    'VERSION_FROM' => 'lib/Class/Loader.pm',
+    'VERSION_FROM' => 'VERSION',
 );
 
