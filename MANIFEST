@@ -1,0 +1,14 @@
+
+# Files in Class::Loader bundle. 
+
+MANIFEST
+ARTISTIC
+Changes
+
+Makefile.PL
+
+lib/Class/Loader.pm
+lib/Class/LoaderTest.pm
+
+# $Id: MANIFEST,v 1.2 2001/04/22 01:13:04 vipul Exp $ 
+
