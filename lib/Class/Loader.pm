@@ -6,14 +6,13 @@
 ## This code is free software; you can redistribute it and/or modify
 ## it under the same terms as Perl itself.
 ##
-## $Id: Loader.pm,v 2.00 2001/05/29 13:17:54 vipul Exp $
+## $Id: Loader.pm,v 2.2 2001/07/18 20:21:39 vipul Exp $
 
 package Class::Loader;
 use Data::Dumper;
-use CPAN;
 use vars qw($VERSION);
 
-($VERSION)  = '$Revision: 2.00 $' =~ /\s(\d+\.\d+)\s/; 
+($VERSION)  = '$Revision: 2.02 $' =~ /\s(\d+\.\d+)\s/; 
 my %MAPS = ();
 
 sub new { 
@@ -45,6 +44,7 @@ sub _load {
     if ($module) { 
         unless (eval "require $module") { 
             if ($source{CPAN}) { 
+                require CPAN; CPAN->import;
                 my $obj = CPAN::Shell->expand ('Module', $module);
                 return unless $obj;
                 $obj->install; 
@@ -96,8 +96,8 @@ Class::Loader - Load modules and create objects on demand.
 
 =head1 VERSION
 
-    $Revision: 2.00 $
-    $Date: 2001/05/29 13:17:54 $
+    $Revision: 2.2 $
+    $Date: 2001/07/18 20:21:39 $
 
 =head1 SYNOPSIS
 
