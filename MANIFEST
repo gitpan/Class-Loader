@@ -10,5 +10,8 @@ Makefile.PL
 lib/Class/Loader.pm
 lib/Class/LoaderTest.pm
 
-# $Id: MANIFEST,v 1.2 2001/04/22 01:13:04 vipul Exp $ 
+t/01-require.t
+t/02-map.t
+
+# $Id: MANIFEST,v 1.3 2001/04/28 15:19:14 vipul Exp $ 
 

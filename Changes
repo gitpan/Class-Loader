@@ -4,6 +4,10 @@
 
 --------------------------------------------------------------------------
 
+1.8                                                         April 28, 2001
+
+    * Included tests in the distribition.
+
 1.7                                                         April 28, 2001
 
     * Introduced CPAN switch in calls to _load()

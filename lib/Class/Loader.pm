@@ -6,13 +6,13 @@
 ## This code is free software; you can redistribute it and/or modify
 ## it under the same terms as Perl itself.
 ##
-## $Id: Loader.pm,v 1.7 2001/04/28 03:21:46 vipul Exp $
+## $Id: Loader.pm,v 1.8 2001/04/28 15:19:16 vipul Exp $
 
 package Class::Loader;
 use CPAN;
 use vars qw($VERSION);
 
-($VERSION)  = '$Revision: 1.7 $' =~ /\s(\d+\.\d+)\s/; 
+($VERSION)  = '$Revision: 1.8 $' =~ /\s(\d+\.\d+)\s/; 
 my %MAPS = ();
 
 
@@ -84,8 +84,8 @@ Class::Loader - Load modules and create objects on demand.
 
 =head1 VERSION
 
-    $Revision: 1.7 $
-    $Date: 2001/04/28 03:21:46 $
+    $Revision: 1.8 $
+    $Date: 2001/04/28 15:19:16 $
 
 =head1 SYNOPSIS
 
@@ -199,4 +199,5 @@ free software; you can redistribute it and/or modify it under the same
 terms as Perl itself.
 
 =cut
+
 
