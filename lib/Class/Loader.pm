@@ -12,7 +12,7 @@ package Class::Loader;
 use Data::Dumper;
 use vars qw($VERSION);
 
-($VERSION)  = '$Revision: 2.02 $' =~ /\s(\d+\.\d+)\s/; 
+($VERSION)  = '$Revision: 2.03 $' =~ /\s(\d+\.\d+)\s/; 
 my %MAPS = ();
 
 sub new { 
@@ -84,6 +84,8 @@ sub __prepare_args {
     my $topass = Dumper shift;
     $topass =~ s/\$VAR1 = \[//; 
     $topass =~ s/];\s*//g; 
+    $topass =~ m/(.*)/s;
+    $topass = $1;
     return $topass;
 
 }
@@ -199,6 +201,10 @@ maintains separate maps for different classes, and _retrmap() returns the
 map valid in the caller class.
 
 =back
+
+=head1 SEE ALSO
+
+AnyLoader(3)
 
 =head1 AUTHOR
 
